@@ -9,7 +9,7 @@ var map = new ol.Map({
 });
 
 //initial view - epsg:3857 coordinates if not "Match project CRS"
-map.getView().fit([12328361.313648, -1011424.935053, 12796307.725906, -676964.706830], map.getSize());
+map.getView().fit([12325173.667788, -1022400.976621, 12793120.080046, -687864.797012], map.getSize());
 
 ////small screen definition
     var hasTouchScreen = map.getViewport().classList.contains('ol-touch');
@@ -828,9 +828,30 @@ if (elementToMove && parentElement) {
 
 //geocoder
 
+var geocoder = new Geocoder('nominatim', {
+  provider: 'osm',
+  lang: 'en-US',
+  placeholder: 'Search place or address ...',
+  limit: 5,
+  keepOpen: true,
+});
+map.addControl(geocoder);
+document.getElementsByClassName('gcd-gl-btn')[0].className += ' fa fa-search';
+
 
 //layer search
 
+var searchLayer = new SearchLayer({
+    layer: lyr_ALPROJATIMJuli2024_7,
+    colName: 'Project_ID_Actual',
+    zoom: 10,
+    collapsed: true,
+    map: map
+});
+map.addControl(searchLayer);
+document.getElementsByClassName('search-layer')[0].getElementsByTagName('button')[0].className += ' fa fa-binoculars';
+document.getElementsByClassName('search-layer-input-search')[0].placeholder = 'Search feature ...';
+    
 
 //scalebar
 
